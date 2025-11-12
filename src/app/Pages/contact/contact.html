@@ -1,0 +1,148 @@
+<section class="contact-hero">
+  <div class="hero-text">
+    <h1>მოგვწერე</h1>
+    <p>გქონდეს შეკითხვა, რეკომენდაცია თუ თანამშრომლობის სურვილი — სიამოვნებით გიპასუხებთ.</p>
+    <ul class="highlights">
+      <li>⏱ სამუშაო საათები: 10:00 – 19:00</li>
+      <li>📦 შეკვეთები &amp; დელივერი</li>
+      <li>🛠 სერვისი &amp; გარანტია</li>
+    </ul>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="bubble b1"></div>
+    <div class="bubble b2"></div>
+    <div class="bubble b3"></div>
+  </div>
+</section>
+
+<!-- INFO + FORM -->
+<section class="contact-wrap">
+  <div class="info">
+    <article class="info-card">
+      <div class="icon">📍</div>
+      <div>
+        <h3>მისამართი</h3>
+        <p>თბილისი, ვაჟა-ფშაველას გამზ. 12</p>
+      </div>
+    </article>
+
+    <article class="info-card">
+      <div class="icon">☎️</div>
+      <div>
+        <h3>საკონტაქტო</h3>
+        <p><a href="tel:+995555123456">+995 555 12 34 56</a></p>
+        <p><a href="mailto:support@footwear.ge">support@footwear.ge</a></p>
+      </div>
+    </article>
+
+    <article class="info-card">
+      <div class="icon">🕒</div>
+      <div>
+        <h3>სამუშაო დრო</h3>
+        <p>ორშ–შაბ: 10:00–19:00 • კვა: 12:00–17:00</p>
+      </div>
+    </article>
+
+    <article class="info-card alt">
+      <div class="icon">💬</div>
+      <div>
+        <h3>სწრაფი პასუხი</h3>
+        <p>ვცდილობთ 2 საათში გიპასუხოთ სამუშაო პერიოდში.</p>
+      </div>
+    </article>
+  </div>
+
+  <form class="form" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    <h2>დაგვიკავშირდი</h2>
+
+    <div class="row">
+      <label>
+        <span>სახელი</span>
+        <input type="text" formControlName="name" placeholder="მაგ: გიორგი" />
+        <small class="err" *ngIf="f.name.touched && f.name.invalid">შეიყვანე მინ. 2 ასო.</small>
+      </label>
+
+      <label>
+        <span>ელ. ფოსტა</span>
+        <input type="email" formControlName="email" placeholder="name@example.com" />
+        <small class="err" *ngIf="f.email.touched && f.email.invalid">არასწორი ელ.ფოსტის ფორმატი.</small>
+      </label>
+    </div>
+
+    <div class="row">
+      <label>
+        <span>თემა</span>
+        <select formControlName="subject">
+          <option value="general">ზოგადი შეკითხვა</option>
+          <option value="order">შეკვეთები &amp; დელივერი</option>
+          <option value="warranty">გარანტია &amp; სერვისი</option>
+          <option value="collab">თანამშრომლობა</option>
+        </select>
+      </label>
+
+      <label>
+        <span>ტელეფონი (არასავალდებულო)</span>
+        <input type="tel" formControlName="phone" placeholder="+995 5xx xx xx xx" />
+      </label>
+    </div>
+
+    <label class="full">
+      <span>მესიჯი</span>
+      <textarea rows="6" formControlName="message" placeholder="დაგვიტოვე შენი შეტყობინება..."></textarea>
+      <small class="err" *ngIf="f.message.touched && f.message.invalid">მინ. 10 სიმბოლო.</small>
+    </label>
+
+    <div class="policy">
+      <label class="check">
+        <input type="checkbox" formControlName="agree" />
+        <i></i>
+        <span>ვეთანხმები პირადი მონაცემების დამუშავებას</span>
+      </label>
+      <small class="err" *ngIf="f.agree.touched && f.agree.invalid">გთხოვ დაეთანხმო პოლიტიკას.</small>
+    </div>
+
+    <div class="actions">
+      <button class="btn-primary" type="submit" [disabled]="loading || contactForm.invalid">
+        <span *ngIf="!loading">გაგზავნა</span>
+        <span *ngIf="loading">გაგზავნა…</span>
+      </button>
+      <button class="btn-ghost" type="button" (click)="contactForm.reset({ subject: 'general', agree: false, name: '', email: '', phone: '', message: '' })">
+        გასუფთავება
+      </button>
+    </div>
+
+    <p class="note">* საშუალო პასუხის დრო: ~2 საათი სამუშაო დღეებში.</p>
+  </form>
+</section>
+
+<!-- MAP + FAQ -->
+<section class="map-faq">
+  <div class="map">
+    <iframe
+      title="FootWear რუკა"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      src="https://maps.google.com/maps?q=Tbilisi%20Georgia&t=&z=13&ie=UTF8&iwloc=&output=embed">
+    </iframe>
+  </div>
+
+  <div class="faq">
+    <h3>ხშირად დასმული კითხვები</h3>
+    <details open>
+      <summary>როგორ ხდება მიწოდება?</summary>
+      <p>თბილისში 1–2 სამუშაო დღეში, რეგიონებში 2–4 დღეში. 150₾-ზე მეტი შეკვეთის შემთხვევაში მიწოდება უფასოა.</p>
+    </details>
+    <details>
+      <summary>როგორ მოვახდინო განაცვლება/დაბრუნება?</summary>
+      <p>პროდუქტის მიღებიდან 14 დღეში, თუ შენახულია თავდაპირველი მდგომარეობა და შეფუთვა.</p>
+    </details>
+    <details>
+      <summary>რა ზომის გზამკვლევი გაქვთ?</summary>
+      <p>ზომის გიდი მოცემულია თითოეული პროდუქტის გვერდზე — „ზომები“ ჩანართში.</p>
+    </details>
+  </div>
+</section>
+
+<!-- TOASTS -->
+<div class="toast success" [class.show]="toast.type==='success' && toast.show">✅ შეტყობინება წარმატებით გაიგზავნა!</div>
+<div class="toast error"   [class.show]="toast.type==='error' && toast.show">❌ შეცდომა — სცადე ხელახლა.</div>

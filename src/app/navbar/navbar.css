@@ -1,0 +1,154 @@
+:host {
+  --primary: #e50914;
+  --bg: #fff;
+  --text: #111;
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s ease;
+}
+
+/* ======== Navbar ძირითადი ======== */
+.navbar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+}
+
+.nav-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 16px 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ======== ლოგო ======== */
+.nav-logo a {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  transition: var(--transition);
+}
+.nav-logo a:hover {
+  color: #c30712;
+  transform: scale(1.05);
+}
+
+/* ======== ლინკები ======== */
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+  transition: var(--transition);
+  padding-bottom: 4px;
+}
+
+/* Hover და active ხაზის ანიმაცია */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+.nav-links a:hover {
+  color: var(--primary);
+}
+.nav-links a.active {
+  color: var(--primary);
+}
+
+/* ======== Actions ======== */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cart-btn {
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--primary);
+  transition: var(--transition);
+}
+.cart-btn:hover {
+  transform: scale(1.15);
+}
+
+/* ======== მენიუს ღილაკი (hamburger) ======== */
+.menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.menu-btn span {
+  width: 26px;
+  height: 3px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+/* გახსნილი ანიმაცია */
+.menu-btn span.open:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.menu-btn span.open:nth-child(2) {
+  opacity: 0;
+}
+.menu-btn span.open:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 900px) {
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg);
+    padding: 40px 0;
+    gap: 24px;
+    transform: translateY(-150%);
+    opacity: 0;
+    transition: var(--transition);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .menu-btn {
+    display: flex;
+  }
+
+  .nav-links a {
+    font-size: 1.1rem;
+  }
+}

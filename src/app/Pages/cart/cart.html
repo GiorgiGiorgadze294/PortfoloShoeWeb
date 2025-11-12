@@ -1,0 +1,114 @@
+<section class="cart" *ngIf="cartItems.length > 0; else emptyCart">
+  <!-- Header -->
+  <header class="cart-head">
+    <div class="title-wrap">
+      <h1>შენი კალათა</h1>
+      <p>გადახედე არჩევანს და დაასრულე შენაძენი ✨</p>
+    </div>
+
+    <!-- Progress to free shipping -->
+    <div class="progress" *ngIf="freeShipThreshold">
+      <div class="progress-top">
+        <span class="hint" *ngIf="freeShippingLeft() > 0">
+          უფასო მიწოდებამდე დარჩა <b>{{ freeShippingLeft() }} ₾</b>
+        </span>
+        <span class="hint ok" *ngIf="freeShippingLeft() === 0">
+          🎉 უფასო მიწოდება ჩართულია
+        </span>
+        <span class="value">{{ getTotal() }} / {{ freeShipThreshold }} ₾</span>
+      </div>
+      <div class="bar">
+        <div class="fill" [style.width.%]="shippingProgress()"></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- Items -->
+    <div class="items">
+      <article class="row" *ngFor="let item of cartItems; let i = index">
+        <div class="pic">
+          <img [src]="item.image" [alt]="item.name" loading="lazy" />
+        </div>
+
+        <div class="meta">
+          <div class="top">
+            <h2 class="name">{{ item.name }}</h2>
+            <button class="remove" (click)="removeItem(i)" aria-label="ამოშლა">✖</button>
+          </div>
+          <div class="brand">{{ item.brand }}</div>
+
+          <div class="controls">
+            <div class="qty">
+              <button (click)="decreaseQuantity(item)" aria-label="რაოდენობის შემცირება">−</button>
+              <span>{{ item.quantity }}</span>
+              <button (click)="increaseQuantity(item)" aria-label="რაოდენობის გაზრდა">+</button>
+            </div>
+
+            <div class="price">
+              <span class="each">{{ item.price }} ₾</span>
+              <span class="x">×</span>
+              <span class="q">{{ item.quantity }}</span>
+              <span class="equals">=</span>
+              <span class="sum">{{ item.price * item.quantity }} ₾</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Summary -->
+    <aside class="summary">
+      <h3>შეკვეთის დეტალები</h3>
+
+      <div class="line">
+        <span>კალათაში</span>
+        <span>{{ cartItems.length }}</span>
+      </div>
+
+      <div class="line">
+        <span>ქვე-ჯამი</span>
+        <span>{{ getTotal() }} ₾</span>
+      </div>
+
+      <div class="line small" *ngIf="freeShipThreshold">
+        <span>მიწოდება</span>
+        <span>
+          <ng-container *ngIf="freeShippingLeft() === 0; else paidShipping">უფასო</ng-container>
+          <ng-template #paidShipping>{{ shippingCost | number:'1.0-0' }} ₾</ng-template>
+        </span>
+      </div>
+
+      <div class="total">
+        <span>სულ</span>
+        <span>{{ (getTotal() + (freeShippingLeft() === 0 ? 0 : shippingCost)) | number:'1.0-0' }} ₾</span>
+      </div>
+
+      <button class="btn primary" routerLink="/checkout">გადახდა 💳</button>
+      <button class="btn ghost" (click)="clearCart()">გასუფთავება 🗑</button>
+
+      <p class="safe">
+        🔒 დაცული გადახდა &nbsp;•&nbsp; 14-დღიანი დაბრუნება
+      </p>
+    </aside>
+  </div>
+
+  <!-- Mobile sticky bar -->
+  <div class="mobile-checkout">
+    <div class="sum">
+      <span>სულ:</span>
+      <b>{{ (getTotal() + (freeShippingLeft() === 0 ? 0 : shippingCost)) | number:'1.0-0' }} ₾</b>
+    </div>
+    <a class="btn primary" routerLink="/checkout">გადახდა</a>
+  </div>
+</section>
+
+<!-- Empty state -->
+<ng-template #emptyCart>
+  <section class="empty">
+    <img src="assets/empty-cart.png" alt="Empty Cart" />
+    <h2>კალათა ცარიელია 😔</h2>
+    <p>შეარჩიე საყვარელი პროდუქტები და დაამატე კალათაში</p>
+    <a routerLink="/products" class="btn primary">← დაბრუნდი მაღაზიაში</a>
+  </section>
+</ng-template>

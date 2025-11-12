@@ -1,0 +1,68 @@
+<!-- HERO SECTION -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>მოირგე შენი სტილი</h1>
+    <p>
+      აღმოაჩინე თანამედროვე ფეხსაცმელები — კომფორტი, ხარისხი და ელეგანტურობა ერთ ადგილას.
+    </p>
+    <a routerLink="/products" class="btn-primary">შეიძინე ახლა</a>
+  </div>
+  <div class="hero-img">
+        <img src="assets/superstar2.jpg" alt="Shoes" loading="lazy" />
+  </div>
+</section>
+
+<!-- PRODUCT CAROUSEL -->
+<section class="carousel">
+  <h2 class="section-title">პოპულარული პროდუქტები</h2>
+
+  <div class="carousel-track">
+    <div class="card" *ngFor="let product of products">
+      <img [src]="product.image" [alt]="product.name" />
+
+      <div class="info">
+        <h3>{{ product.name }}</h3>
+        <p class="brand">{{ product.brand }}</p>
+        <p class="desc">{{ product.description }}</p>
+        <div class="price">{{ product.price }} ₾</div>
+
+        <div class="btns">
+          <button class="btn-secondary" [routerLink]="['/product', product.id]">
+            🔍 ნახე დეტალები
+          </button>
+          <button class="btn-add-cart" (click)="addToCart(product)">
+            🛒 დამატება კალათაში
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- DESCRIPTION SECTION -->
+<section class="about">
+  <div class="text">
+    <h2>რატომ FootWear?</h2>
+    <p>
+      ჩვენი მიზანია მომხმარებელს შევთავაზოთ ფეხსაცმელები, რომლებიც აერთიანებს 
+      კომფორტს, დიზაინს და გამძლეობას.  
+      თითოეული მოდელი შემუშავებულია დეტალების სიზუსტით და თანამედროვე სტანდარტებით.
+    </p>
+    <p>
+      ჩვენთან აღმოაჩენ მოდელებს სპორტისთვის, ყოველდღიური ტარებისთვის 
+      და განსაკუთრებული შემთხვევებისთვის.
+    </p>
+    <a routerLink="/about" class="btn-primary">გაიგე მეტი</a>
+  </div>
+  <div class="image">
+    <img src="assets/Brand.png" alt="About shoes" />
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta">
+  <h2>შეუერთდი ჩვენს კლუბს</h2>
+  <p>მიიღე 10% ფასდაკლება პირველ შეკვეთაზე!</p>
+  <button class="btn-secondary">შემოგვიერთდი</button>
+</section>

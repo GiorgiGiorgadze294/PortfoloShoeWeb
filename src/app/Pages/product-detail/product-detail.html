@@ -1,0 +1,63 @@
+<section class="product-detail" *ngIf="product; else notFound">
+  <!-- მარცხენა მხარე - ფოტო -->
+  <div class="image-side">
+    <img [src]="product.image" [alt]="product.name" />
+  </div>
+
+  <!-- მარჯვენა მხარე - ინფორმაცია -->
+  <div class="info-side">
+    <h1>{{ product.name }}</h1>
+    <p class="desc">{{ product.description }}</p>
+
+    <div class="price">{{ product.price }} ₾</div>
+
+    <!-- ზომები -->
+    <div class="size-selector">
+      <label>აირჩიე ზომა:</label>
+      <div class="sizes">
+        <button
+          *ngFor="let s of product.sizes"
+          [disabled]="s.stock === 0"
+          [class.active]="selectedSize === s.size"
+          (click)="selectSize(s.size)"
+        >
+          {{ s.size }}
+          <span *ngIf="s.stock === 0" class="out">ამოწურული</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- რაოდენობა -->
+    <div class="quantity-selector">
+      <label>რაოდენობა:</label>
+      <div class="quantity-box">
+        <button (click)="decreaseQty()">−</button>
+        <span>{{ quantity }}</span>
+        <button (click)="increaseQty()">+</button>
+      </div>
+    </div>
+
+    <!-- დამატება კალათაში -->
+    <button class="btn-primary add-btn" (click)="addToCart()">
+      🛒 დამატება კალათაში
+    </button>
+
+    <!-- დამატებითი ინფორმაცია -->
+    <div class="extra-info">
+      <h3>დეტალები</h3>
+      <ul>
+        <li>ბრენდი: FootWear</li>
+        <li>გარანტია: 1 წელი</li>
+        <li>მიტანა: მთელი საქართველოს მასშტაბით</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- თუ პროდუქტი ვერ მოიძებნა -->
+<ng-template #notFound>
+  <div class="not-found">
+    <h2>პროდუქტი ვერ მოიძებნა 😔</h2>
+    <a routerLink="/" class="btn-primary">დაბრუნდი მთავარზე</a>
+  </div>
+</ng-template>

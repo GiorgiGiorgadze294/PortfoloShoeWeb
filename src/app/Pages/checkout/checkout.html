@@ -1,0 +1,66 @@
+<section class="checkout-section">
+  <div class="checkout-header">
+    <h1>🧾 შეკვეთის ფორმა</h1>
+    <p>შეავსე ინფორმაცია და დაადასტურე შენი შეკვეთა</p>
+  </div>
+
+  <div class="checkout-container">
+    <!-- LEFT SIDE: CUSTOMER FORM -->
+    <div class="checkout-form">
+      <h2>მომხმარებლის ინფორმაცია</h2>
+
+      <form (submit)="$event.preventDefault()">
+        <label>სახელი და გვარი *</label>
+        <input type="text" [(ngModel)]="fullName" name="fullName" placeholder="მაგ: გიორგი და გვარი" required />
+
+        <label>ტელეფონის ნომერი *</label>
+        <input type="tel" [(ngModel)]="phone" name="phone" placeholder="მაგ: +995 5XX XX XX XX" required />
+
+        <label>ქალაქი *</label>
+        <input type="text" [(ngModel)]="city" name="city" placeholder="მაგ: თბილისი" required />
+
+        <label>მიწოდების მისამართი *</label>
+        <input type="text" [(ngModel)]="address" name="address" placeholder="მაგ: დიღომი, ქუჩა, სახლი" required />
+
+        <label>შენიშვნა (სურვილისამებრ)</label>
+        <textarea [(ngModel)]="notes" name="notes" rows="3" placeholder="მაგ: დამირეკეთ წინასწარ..."></textarea>
+
+        <h3>გადახდის მეთოდი</h3>
+        <div class="payment-method">
+          <label>
+            <input type="radio" name="payment" value="cash" [(ngModel)]="paymentMethod" checked />
+            💵 ნაღდი ფულით გადახდა (მიწოდებისას)
+          </label>
+          <label class="disabled">
+            <input type="radio" disabled /> 💳 ბარათით (მალე)
+          </label>
+        </div>
+
+        <button class="btn-confirm" (click)="confirmOrder()">
+          ✅ შეკვეთის დადასტურება
+        </button>
+      </form>
+    </div>
+
+    <!-- RIGHT SIDE: ORDER SUMMARY -->
+    <div class="order-summary" *ngIf="cartItems.length > 0">
+      <h2>შენი შეკვეთა</h2>
+
+      <div class="summary-items">
+        <div class="summary-item" *ngFor="let item of cartItems">
+          <img [src]="item.image" [alt]="item.name" />
+          <div class="details">
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.brand }}</p>
+            <span>{{ item.quantity }} × {{ item.price }} ₾</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-total">
+        <h3>სულ გადასახდელი:</h3>
+        <div class="total">{{ getTotal() }} ₾</div>
+      </div>
+    </div>
+  </div>
+</section>

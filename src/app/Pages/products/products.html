@@ -1,0 +1,59 @@
+<section class="products-section">
+  <!-- Header -->
+  <div class="header">
+    <h1>🛍️ ჩვენი კოლექცია</h1>
+    <p>
+      აირჩიე შენი სტილი — კომფორტი, ელეგანტურობა და ხარისხი ერთ სივრცეში.
+      შეგიძლია მოძებნო პროდუქტი ან აირჩიო სასურველი ბრენდი.
+    </p>
+  </div>
+
+  <!-- 🔍 ფილტრი და ძიება -->
+  <div class="filter-bar">
+    <div class="search-box">
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        (input)="onSearchChange()"
+        placeholder="🔍 მოძებნე ფეხსაცმელი..."
+      />
+    </div>
+
+    <div class="brands">
+      <button
+        *ngFor="let brand of brands"
+        (click)="selectBrand(brand)"
+        [class.active]="selectedBrand === brand"
+      >
+        {{ brand }}
+      </button>
+    </div>
+  </div>
+
+  <!-- პროდუქტები -->
+  <div class="products-grid">
+    <div
+      class="product-card"
+      *ngFor="let product of filteredProducts"
+    >
+      <div class="image-container">
+        <img [src]="product.image" [alt]="product.name" />
+        <div class="overlay">
+          <button class="btn-view" [routerLink]="['/product', product.id]">ნახე დეტალები</button>
+        </div>
+      </div>
+
+      <div class="info">
+        <h3>{{ product.name }}</h3>
+        <p class="brand" [style.color]="getBrandColor(product.brand)">
+          {{ product.brand }}
+        </p>
+        <div class="price">{{ product.price }} ₾</div>
+        <button class="btn-add-cart" (click)="addToCart(product)">
+            🛒 დამატება კალათაში
+        </button>
+      </div>
+    </div>
+  </div>
+
+</section>
